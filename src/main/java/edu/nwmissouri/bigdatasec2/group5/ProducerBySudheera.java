@@ -8,7 +8,7 @@ import java.util.Properties;
 import java.util.Scanner;
 
 /**
- * Created by sunilpatil on 12/28/15. Modified by Denise Case on 10/29/2019.
+ * modified using the Dr.Case code.
  */
 public class ProducerBySudheera {
   private static Scanner in;
