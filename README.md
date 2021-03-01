@@ -29,6 +29,47 @@ Pooja Gundu [![](https://img.shields.io/badge/Github-GUNDUPOOJA)](https://github
 ```
 - Leave this window open or minimize it.
 ---------------------------------------------------------------
+## Command to create a topic
 
+
+```PowerShell
+ .\bin\windows\kafka-topics.bat --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --create --topic bank
+```
+
+## Compile and Build the Fat Jar File
+
+Open PowerShell as Administrator in the root project folder, compile the code using Maven and create an executable jar file. Generated artificacts can be found in the new 'target' folder.
+
+```PowerShell
+mvn clean compile assembly:single
+```
+
+## To start a Consumer
+
+Open PowerShell as Administrator in the root project folder, start the original consumer app using topic test and group1 with:
+
+```PowerShell
+ 
+ 
+```
+- Leave this window open or minimize it.
+
+## To Start a Producer
+
+Open a new PowerShell as Administrator in the root project folder, start the Producer app using topic test:
+
+```PowerShell
+ 
+```
+- Leave this window open or minimize it.
+
+
+
+
+
+## References
+
+- [Reference Repo](https://github.com/denisecase/kafka-api)
+- [Kafa Tutorial](http://cloudurable.com/blog/kafka-tutorial-kafka-producer/index.html)
 
 
