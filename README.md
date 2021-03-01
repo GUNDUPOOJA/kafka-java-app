@@ -49,7 +49,7 @@ mvn clean compile assembly:single
 Open PowerShell as Administrator in the root project folder, start the original consumer app using topic test and group1 with:
 
 ```PowerShell
- 
+  java -cp target/kafka-java-api-1.0-SNAPSHOT-jar-with-dependencies.jar edu.nwmissouri.bigdatasec2.group5.Consumer bank group1
  
 ```
 - Leave this window open or minimize it.
@@ -60,6 +60,7 @@ Open a new PowerShell as Administrator in the root project folder, start the Pro
 
 ```PowerShell
  
+  java -cp target/kafka-java-api-1.0-SNAPSHOT-jar-with-dependencies.jar edu.nwmissouri.bigdatasec2.group5.ProducerByRajeshwari bank
 ```
 - Leave this window open or minimize it.
 
