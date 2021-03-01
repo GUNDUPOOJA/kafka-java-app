@@ -28,6 +28,9 @@ public class ProducerByPooja {
         "org.apache.kafka.common.serialization.ByteArraySerializer");
     configProperties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG,
         "org.apache.kafka.common.serialization.StringSerializer");
+        kafkaProps.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
+
+
     System.out.println("The configuration properties are: " + configProperties.toString());
     System.out.println("\nWill use this configuration to create a producer.\n");
 
@@ -35,13 +38,11 @@ public class ProducerByPooja {
 
     // Make our own messages - create your custom logic here
 
-    for (int i = 0; i < 10; i++) {
-     int sentnum = sentence.nextInt(10);
-     String Sentence= randomSentence(sentnum);
-      ProducerRecord<String, String> rec = new ProducerRecord<String, String>(topicName, input);
-      producer.send(rec);
-    }
-
+    for (int i = 1; i <= 2; i++) {
+        String message = "pooja is good girl" + i +"ofcourse,";
+        ProducerRecord<String, String> rec = new ProducerRecord<String, String>(topicName, message);
+        producer.send(rec);
+      }
     // still allow input from keyboard
 
     String line = in.nextLine();
@@ -54,42 +55,56 @@ public class ProducerByPooja {
     in.close();
     producer.close();
   }
-  private static String randomSentence(int n) {
-    if(n==0){
-        return "The Wrong Family  is the perfect book for readers when one shocking plot twist is not nearly enough.";
-    }
-    else if(n==1){
-        return "Paul Cadden";
-    }
-    else if(n==2){
-        return " Adonna Khare";
-    }
-    else if(n==3){
-        return "CJ Hendry";
-    }
-    else if(n==4){
-        return " Diego Fazzio";
-    }
-    else if(n==5){
-        return "Dirk Dzimirsky";
-    }
-    else if(n==6){
-        return "Monica Lee";
-    }
-    else if(n==7){
-        return "Monica Lee";
-    }
-   else if(n==8){
-        return "Monica Lee";
-    }
-    else if(n==9){
-        return "Monica Lee";
-    }
-    else
-    {
-        return "picaso";
-    }
-   
 }
 
-}
+//     // still allow input from keyboard
+
+//     String line = in.nextLine();
+//     while (!line.equals("exit")) {
+//       ProducerRecord<String, String> rec = new ProducerRecord<String, String>(topicName, line);
+//       producer.send(rec);
+//       line = in.nextLine();
+//     }
+
+//     in.close();
+//     producer.close();
+//   }
+//   private static String randomSentence(int n) {
+//     if(n==0){
+//         return "The Wrong Family  is the perfect book for readers when one shocking plot twist is not nearly enough.";
+//     }
+//     else if(n==1){
+//         return "Paul Cadden";
+//     }
+//     else if(n==2){
+//         return " Adonna Khare";
+//     }
+//     else if(n==3){
+//         return "CJ Hendry";
+//     }
+//     else if(n==4){
+//         return " Diego Fazzio";
+//     }
+//     else if(n==5){
+//         return "Dirk Dzimirsky";
+//     }
+//     else if(n==6){
+//         return "Monica Lee";
+//     }
+//     else if(n==7){
+//         return "Monica Lee";
+//     }
+//    else if(n==8){
+//         return "Monica Lee";
+//     }
+//     else if(n==9){
+//         return "Monica Lee";
+//     }
+//     else
+//     {
+//         return "picaso";
+//     }
+   
+// }
+
+// }
