@@ -10,7 +10,7 @@ import java.util.Scanner;
 public class ProducerByPooja {
   private static Scanner in;
 
-  public static void main(String[] argv) throws Exception {
+  public static void main(String[] argv)  {
     if (argv.length != 1) {
       System.err.println("Please specify 1 parameter (the name of the topic)");
       System.exit(-1);
@@ -53,7 +53,7 @@ public class ProducerByPooja {
     in.close();
     producer.close();
   }
-  private static String randomSentence(String n) {
+  private static String randomSentence(int n) {
     if(n==0){
         return "The Wrong Family  is the perfect book for readers when one shocking plot twist is not nearly enough.";
     }
