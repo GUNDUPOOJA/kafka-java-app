@@ -55,6 +55,7 @@
           <archive>
             <manifest>
               <mainClass>edu.nwmissouri.bigdatasec2.group5.Producer</mainClass>
+             <mainClass>edu.nwmissouri.bigdatasec2.group5.ProducerByPooja</mainClass>
             </manifest>
           </archive>
           <descriptorRefs>
