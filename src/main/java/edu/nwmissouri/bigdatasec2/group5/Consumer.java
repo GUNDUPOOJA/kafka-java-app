@@ -1,4 +1,4 @@
-package edu.nwmissouri.bigdatasec2.group5.simple;
+package edu.nwmissouri.bigdatasec2.group5;
 
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
