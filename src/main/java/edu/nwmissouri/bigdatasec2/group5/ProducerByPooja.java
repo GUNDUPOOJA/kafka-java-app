@@ -10,7 +10,7 @@ import java.util.Scanner;
 public class ProducerByPooja {
   private static Scanner in;
 
-  public static void main(String[] argv)  {
+  public static void main(String[] argv) throws Exception {
     if (argv.length != 1) {
       System.err.println("Please specify 1 parameter (the name of the topic)");
       System.exit(-1);
