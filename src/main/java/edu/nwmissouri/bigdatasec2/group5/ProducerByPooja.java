@@ -39,7 +39,7 @@ public class ProducerByPooja {
 
     // Make our own messages - create your custom logic here
 
-    Random rand = new Random();
+    Random random = new Random();
 
         String input = in.nextLine();
 
