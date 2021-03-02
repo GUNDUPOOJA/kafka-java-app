@@ -28,7 +28,6 @@ public class ProducerByPooja {
         "org.apache.kafka.common.serialization.ByteArraySerializer");
     configProperties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG,
         "org.apache.kafka.common.serialization.StringSerializer");
-        kafkaProps.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
 
 
     System.out.println("The configuration properties are: " + configProperties.toString());
