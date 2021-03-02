@@ -43,20 +43,20 @@ Open PowerShell as Administrator in the root project folder, compile the code us
 ```PowerShell
 mvn clean compile assembly:single
 ```
-
+------------------------
 ## To start a Consumer
 
-Open PowerShell as Administrator in the root project folder, start the original consumer app using topic test and group1 with:
+Open PowerShell as Administrator in the root project folder, start the original consumer app using topic bank and group1 with:
 
 ```PowerShell
   java -cp target/kafka-java-app-1.0-SNAPSHOT-jar-with-dependencies.jar edu.nwmissouri.bigdatasec2.group5.Consumer bank group1
  
 ```
 - Leave this window open or minimize it.
-
+-----------------------------
 ## To Start a Producer
 
-Open a new PowerShell as Administrator in the root project folder, start the Producer app using topic test:
+Open a new PowerShell and run as Administrator in the root project folder then, start the Producer app using topic bank:
 
 ```PowerShell
  
@@ -78,8 +78,6 @@ Open a new PowerShell as Administrator in the root project folder, start the Pro
   java -cp target/kafka-java-app-1.0-SNAPSHOT-jar-with-dependencies.jar edu.nwmissouri.bigdatasec2.group5.ProducerByRajeshwari bank
 ```
 - Leave this window open or minimize it.
-
-
 
 
 
