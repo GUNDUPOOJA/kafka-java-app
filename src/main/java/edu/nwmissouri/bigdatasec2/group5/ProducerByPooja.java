@@ -55,7 +55,7 @@ public class ProducerByPooja {
         // Allow the user to type exit to get out.
         String line = in.nextLine();
         while(!line.equals("exit")){
-            ProducerRecord<String, String> rec = new ProducerRecord<String, String>(topicName, (line + ", Happy pokemon day!"));
+            ProducerRecord<String, String> rec = new ProducerRecord<String, String>(topicName, (line + ", Hello big data developers!"));
             producer.send(rec);
             line = in.nextLine();
         }
