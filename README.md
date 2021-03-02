@@ -66,7 +66,8 @@ Open a new PowerShell as Administrator in the root project folder, start the Pro
 --------------------------------------------
 # Rajeshwari Rudravaram [![](https://img.shields.io/badge/Github-Rajeshwari-Rudra)](https://github.com/Rajeshwari-Rudra)
 ----------------------------------------
-
+* Individual Kafka App - bigdata-kafka-api
+- [Repo link to my Individual kafka app](https://github.com/Rajeshwari-Rudra/bigdata-kafka-api)
 
 ## To Start a ProducerByRajeshwari
 
