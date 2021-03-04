@@ -34,48 +34,45 @@ public class ProducerByRaju {
 
     org.apache.kafka.clients.producer.Producer producer = new KafkaProducer(configProperties);
 
-    // Make our own messages - create your custom logic here
+    String message = findvowels();
+	      ProducerRecord<String, String> record = new ProducerRecord<String, String>(topicName, message);
+	      producer.send(record);
 
-    String str = reverseString();
-      ProducerRecord<String, String> rec = new ProducerRecord<String, String>(topicName, message);
-      producer.send(rec);
+	    // still allow input from keyboard
+		String line = in.nextLine();
+	    while (!line.equals("exit")) {
+	      ProducerRecord<String, String> rec = new ProducerRecord<String, String>(topicName, line);
+	      producer.send(rec);
+	      line = in.nextLine();
+	    }
+
+	    in.close();
+	    producer.close();
+
+	  }
+	  
+	  private static String findvowels(){
+		  String line = "Bank Of America";
+    int uppercase = 0, lowercase = 0;
+
+    line = line.toLowerCase();
+    line = line.toUpperCase();
+    for (int i = 0; i < line.length(); i++) {
+      
+        // Check for uppercase letters.
+        if (Character.isUpperCase(line.charAt(i))) uppercase++;
+    
+        // Check for lowercase letters.
+        if (Character.isLowerCase(line.charAt(i))) lowercase++;
+    }
+    
+    System.out.printf("There are %d uppercase letters and %d lowercase letters.",uppercase,lowercase);
     
 
-    // still allow input from keyboard
-
-    String line = in.nextLine();
-
-    while (!line.equals("exit")) {
-      ProducerRecord<String, String> recs = new ProducerRecord<String, String>(topicName, line);
-      producer.send(recs);
-      line = in.nextLine();
-    }
-
-    in.close();
-    producer.close();
-
-  
-
-}
-  public static String reversestring(){
-
-  String line = "Northwest Missouri State University";
+return "uppercase: " + uppercase+ ", lowercase: " + lowercase;
  
-  // getBytes() method to convert string
-  // into bytes[].
-  byte[] strAsByteArray = input.getBytes();
-
-  byte[] result = new byte[strAsByteArray.length];
-
-  // Store result in reverse order into the
-  // result byte[]
-  for (int i = 0; i < strAsByteArray.length; i++){
-      result[i] = strAsByteArray[strAsByteArray.length - i - 1];
-  }
-
-    return result;
+      }
+    
 }
- 
-}
-  
+
  
