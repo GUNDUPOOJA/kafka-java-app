@@ -28,7 +28,8 @@ public class ProducerByRavi {
 
         KafkaProducer producer = new KafkaProducer<String, String>(config);
 
-        while (true) {
+        int i = 0;
+        while (i<=10) {
             LocalDateTime runtime = LocalDateTime.now();
             String ip = "192.168.2." + rnd.nextInt(255);
             String msg = runtime + " www.example.com " + ip;
@@ -36,6 +37,7 @@ public class ProducerByRavi {
             ProducerRecord record = new ProducerRecord<String, String>(topic, ip, msg);
             producer.send(record);
             Thread.sleep(100);
+            i++;
         }
     }
 }

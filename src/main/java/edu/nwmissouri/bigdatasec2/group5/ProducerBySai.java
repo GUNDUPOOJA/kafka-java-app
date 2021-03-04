@@ -1,52 +1,77 @@
 package edu.nwmissouri.bigdatasec2.group5;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Locale;
-import java.util.Properties;
-
-import com.google.common.io.Resources;
-
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
+import org.apache.kafka.clients.producer.RecordMetadata;
 
-/**
- * This producer will send a bunch of messages to topic "fast-messages". Every
- * so often, it will send a message to "slow-messages". This shows how messages
- * can be sent to multiple topics. On the receiving end, we will see both kinds
- * of messages but will also see how the two topics aren't really synchronized.
- */
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Properties;
+
 public class ProducerBySai {
-    public static void main(String[] args) throws IOException {
-        // set up the producer
-        KafkaProducer<String, String> producer;
-        try (InputStream props = Resources.getResource("producer.props").openStream()) {
-            Properties properties = new Properties();
-            properties.load(props);
-            producer = new KafkaProducer<>(properties);
-        }
+    private final static String TOPIC = "test";
+    private final static String BOOTSTRAP_SERVERS = "localhost:9092";
+    private String fileName = "recordFile.txt";
+    private static KafkaProducer<String, String> producer;
 
-        try {
-            for (int i = 0; i < 1000000; i++) {
-                // send lots of messages
-                producer.send(new ProducerRecord<String, String>("fast-messages", String.format(Locale.US,
-                        "{\"type\":\"test\", \"t\":%.3f, \"k\":%d}", System.nanoTime() * 1e-9, i)));
+    private static KafkaProducer<String, String> getProducer() {
+        Properties kafkaProps = new Properties();
+        kafkaProps.put("bootstrap.servers", BOOTSTRAP_SERVERS);
+        kafkaProps.put("acks", "all");
+        kafkaProps.put("compression.type", "snappy");
+        kafkaProps.put("retries", 1);
+        kafkaProps.put("batch.size", 16384);
+        kafkaProps.put("linger.ms", 5);
+        kafkaProps.put("buffer.memory", 33554432);
+        kafkaProps.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
+        kafkaProps.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
+        producer = new KafkaProducer<>(kafkaProps);
+        return producer;
+    }
 
-                // every so often send to a different topic
-                if (i % 1000 == 0) {
-                    producer.send(new ProducerRecord<String, String>("fast-messages", String.format(Locale.US,
-                            "{\"type\":\"marker\", \"t\":%.3f, \"k\":%d}", System.nanoTime() * 1e-9, i)));
-                    producer.send(new ProducerRecord<String, String>("summary-markers", String.format(Locale.US,
-                            "{\"type\":\"other\", \"t\":%.3f, \"k\":%d}", System.nanoTime() * 1e-9, i)));
-                    producer.flush();
-                    System.out.println("Sent msg number " + i);
-                }
+    public void publish() {
+        KafkaProducer<String, String> producer = getProducer();
+        long t1 = System.currentTimeMillis();
+        long index = 0;
+        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+            for (String line; (line = br.readLine()) != null;) {
+                ProducerRecord<String, String> record = new ProducerRecord<>(TOPIC, line);
+                producer.send(record, new ProducerCallBack(index, line));
+                index++;
             }
-        } catch (Throwable throwable) {
-            System.out.printf("%s", throwable.getStackTrace());
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (Throwable e) {
+            e.printStackTrace();
         } finally {
             producer.close();
+            long t2 = System.currentTimeMillis();
+            System.out.println(" Total time taken =" + (t2 - t1) + " in ms");
+            System.out.println(" Number or records processed =" + index);
+        }
+    }
+
+    private static class ProducerCallBack implements org.apache.kafka.clients.producer.Callback {
+
+        public ProducerCallBack(long index, String line) {
+            System.out.println(" index=" + index + " & line =" + line);
         }
 
+        @Override
+        public void onCompletion(RecordMetadata metadata, Exception exception) {
+            if (exception != null) {
+                System.out.println(metadata.topic() + metadata.offset() + metadata.partition());
+            }
+        }
     }
+
+    public static void main(String[] args) {
+        ProducerBySai obj = new ProducerBySai();
+        obj.publish();
+    }
+
 }

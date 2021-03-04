@@ -7,6 +7,8 @@ import org.apache.kafka.clients.producer.ProducerRecord;
 import java.util.Properties;
 import java.util.Scanner;
 import java.lang.*;
+import java.util.*;
+
 
 public class ProducerByPooja {
   private static Scanner in;
@@ -28,7 +30,6 @@ public class ProducerByPooja {
         "org.apache.kafka.common.serialization.ByteArraySerializer");
     configProperties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG,
         "org.apache.kafka.common.serialization.StringSerializer");
-        kafkaProps.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
 
 
     System.out.println("The configuration properties are: " + configProperties.toString());
@@ -38,73 +39,53 @@ public class ProducerByPooja {
 
     // Make our own messages - create your custom logic here
 
-    for (int i = 1; i <= 2; i++) {
-        String message = "pooja is good girl" + i +"ofcourse,";
-        ProducerRecord<String, String> rec = new ProducerRecord<String, String>(topicName, message);
-        producer.send(rec);
-      }
-    // still allow input from keyboard
+    Random random = new Random();
 
-    String line = in.nextLine();
-    while (!line.equals("exit")) {
-      ProducerRecord<String, String> rec = new ProducerRecord<String, String>(topicName, line);
-      producer.send(rec);
-      line = in.nextLine();
+        String input = in.nextLine();
+
+        // we need 5 messages to print
+        for (int i = 0; i<5; i++){
+            //get a random num to display message
+            int  randomno= random.nextInt(5);
+            String sent = randomsentence(randomno);
+            ProducerRecord<String, String> rec = new ProducerRecord<String, String>(topicName, sent);
+            producer.send(rec);
+        }
+
+        // Allow the user to type exit to get out.
+        String line = in.nextLine();
+        while(!line.equals("exit")){
+            ProducerRecord<String, String> rec = new ProducerRecord<String, String>(topicName, (line + ", Hello big data developers!"));
+            producer.send(rec);
+            line = in.nextLine();
+        }
+
+        //User has typed exit
+
+        in.close();
+        producer.close();
+
     }
 
-    in.close();
-    producer.close();
-  }
-}
+    private static String randomsentence(int n) {
+        if(n==0){
+          return "Pablo Picasso";
+        }
+        else if(n==1){
+          return "Leonardo da Vinci";
+        }
+        else if(n==2){
+          return "Henri Matisse";
+        }
+       else if(n==3){
+          return "Jackson Pollock";
+        }
+       else if(n==4){
+          return "Edvard Munch.";
+        }
+        else {
+          return "Andy Warhol";
+        }
+    }
+ }
 
-//     // still allow input from keyboard
-
-//     String line = in.nextLine();
-//     while (!line.equals("exit")) {
-//       ProducerRecord<String, String> rec = new ProducerRecord<String, String>(topicName, line);
-//       producer.send(rec);
-//       line = in.nextLine();
-//     }
-
-//     in.close();
-//     producer.close();
-//   }
-//   private static String randomSentence(int n) {
-//     if(n==0){
-//         return "The Wrong Family  is the perfect book for readers when one shocking plot twist is not nearly enough.";
-//     }
-//     else if(n==1){
-//         return "Paul Cadden";
-//     }
-//     else if(n==2){
-//         return " Adonna Khare";
-//     }
-//     else if(n==3){
-//         return "CJ Hendry";
-//     }
-//     else if(n==4){
-//         return " Diego Fazzio";
-//     }
-//     else if(n==5){
-//         return "Dirk Dzimirsky";
-//     }
-//     else if(n==6){
-//         return "Monica Lee";
-//     }
-//     else if(n==7){
-//         return "Monica Lee";
-//     }
-//    else if(n==8){
-//         return "Monica Lee";
-//     }
-//     else if(n==9){
-//         return "Monica Lee";
-//     }
-//     else
-//     {
-//         return "picaso";
-//     }
-   
-// }
-
-// }
