@@ -36,27 +36,30 @@ public class ProducerByRaju {
 
     // Make our own messages - create your custom logic here
 
-    for (int i = 1; i <= 2; i++) {
-      String message = reversestring();
+    String str = reverseString();
       ProducerRecord<String, String> rec = new ProducerRecord<String, String>(topicName, message);
       producer.send(rec);
-    }
+    
 
     // still allow input from keyboard
 
     String line = in.nextLine();
+
     while (!line.equals("exit")) {
-      ProducerRecord<String, String> rec = new ProducerRecord<String, String>(topicName, line);
-      producer.send(rec);
+      ProducerRecord<String, String> recs = new ProducerRecord<String, String>(topicName, line);
+      producer.send(recs);
       line = in.nextLine();
     }
 
     in.close();
     producer.close();
 
-  }
-  public  reversestring(){
-  String input = "Northwest Missouri State University";
+  
+
+}
+  public static String reversestring(){
+
+  String line = "Northwest Missouri State University";
  
   // getBytes() method to convert string
   // into bytes[].
@@ -66,10 +69,11 @@ public class ProducerByRaju {
 
   // Store result in reverse order into the
   // result byte[]
-  for (int i = 0; i < strAsByteArray.length; i++)
+  for (int i = 0; i < strAsByteArray.length; i++){
       result[i] = strAsByteArray[strAsByteArray.length - i - 1];
+  }
 
-  return result;
+    return result;
 }
  
 }
